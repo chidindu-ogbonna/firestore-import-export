@@ -54,6 +54,11 @@ function addSubCollection(key, subData){
   return new Promise(resolve => {
     db.collection(collectionName).doc(key).collection(subCollection).get()
     .then(snapshot => {      
+
+      if (snapshot.empty) {
+        resolve('Empty')
+      }
+
       snapshot.forEach(subDoc => {             
         subData[subDoc.id] =  subDoc.data();
         resolve('Added data');                                                                 
